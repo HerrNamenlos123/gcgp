@@ -113,10 +113,9 @@ private:
     size_t m_nextLine = 0; 
 };
 
-int main(int argc, char** argv) {
-    
+int main(int argc, char* argv[]) {
     if (argc != 2) {
-        printf("Usage: 01_ReadFileAndPrint <filename>\n", argv[0]);
+        printf("Usage: 01_ReadFileAndPrint <filename>\n");
         return 1;
     }
 

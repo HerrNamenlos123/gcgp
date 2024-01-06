@@ -1,0 +1,8 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+ColumnLimit: 90
+InsertBraces: true
+IndentCaseLabels: true
+BreakBeforeBraces: Stroustrup
+AllowShortFunctionsOnASingleLine: false

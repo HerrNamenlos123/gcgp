@@ -1,7 +1,7 @@
 
 #include "GCGP.h"
 
-GCGP::GCGP(const SerialInterface& serialInterface) : m_grblInterface(serialInterface) {
+GCGP::GCGP(const SerialInterface& serialInterface) : m_grblInterface(serialInterface, this) {
     
 }
 

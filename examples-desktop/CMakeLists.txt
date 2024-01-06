@@ -1,1 +1,2 @@
 add_subdirectory(01_ReadFileAndPrint)
+add_subdirectory(02_ParseSingleCommand)

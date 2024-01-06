@@ -17,7 +17,6 @@ public:
     void update();
 
 private:
-
     GrblInterface m_grblInterface;
 };
 

@@ -3,50 +3,60 @@
 #define GCGP_SERIAL_H
 
 struct SerialInterface {
-    int (*availableFunction)() = nullptr;
-    int (*peekFunction)() = nullptr;
-    int (*readFunction)() = nullptr;
-    void (*writeFunction)(const char*) = nullptr;
-    void (*printlnFunction)(const char*) = nullptr;
+    int (*cbAvailable)() = nullptr;
+    int (*cbPeek)() = nullptr;
+    int (*cbRead)() = nullptr;
+    void (*cbWrite)(const char *) = nullptr;
 
-    int available() const {
-        if (availableFunction == nullptr) {
+    int available() const
+    {
+        if (cbAvailable == nullptr) {
             return 0;
         }
-        return availableFunction();
+        return cbAvailable();
     }
 
-    int peek() const {
-        if (peekFunction == nullptr) {
+    int peek() const
+    {
+        if (cbPeek == nullptr) {
             return 0;
         }
-        return peekFunction();
+        return cbPeek();
     }
 
-    int read() const {
-        if (readFunction == nullptr) {
+    int read() const
+    {
+        if (cbRead == nullptr) {
             return 0;
         }
-        return readFunction();
+        return cbRead();
     }
 
-    void write(const char* str) const {
-        if (writeFunction == nullptr) {
+    void write(const char *str) const
+    {
+        if (cbWrite == nullptr) {
             return;
         }
-        writeFunction(str);
+        cbWrite(str);
     }
 
-    void println(const char* str) const {
-        if (printlnFunction == nullptr) {
-            return;
-        }
-        printlnFunction(str);
+    void print(const char *str) const
+    {
+        write(str);
+    }
+
+    void println(const char *str) const
+    {
+        write(str);
+        write("\n");
     }
 
     SerialInterface() = default;
-    SerialInterface(int (*availableFunction)(), int (*peekFunction)(), int (*readFunction)(), void (*writeFunction)(const char*), void (*printlnFunction)(const char*)) :
-        availableFunction(availableFunction), peekFunction(peekFunction), readFunction(readFunction), writeFunction(writeFunction), printlnFunction(printlnFunction) {}
+    SerialInterface(int (*cbAvailable)(), int (*cbPeek)(), int (*cbRead)(),
+                    void (*cbWrite)(const char *), void (*cbPrintln)(const char *))
+        : cbAvailable(cbAvailable), cbPeek(cbPeek), cbRead(cbRead), cbWrite(cbWrite)
+    {
+    }
 };
 
 #endif // GCGP_SERIAL_H
