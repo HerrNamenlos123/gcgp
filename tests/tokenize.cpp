@@ -113,6 +113,27 @@ std::vector<std::tuple<std::string, std::string, CommandTokens<10>, GrblError>> 
                  }},
             GrblError::GCodeTooManyParameters,
         },
+        {
+            "EXPECT_DECIMALS",
+            "G17.125 X1. X1.0 X0.1 X.1 X-1. X-.1",
+            {.tokens = {{'G', 17.125f},
+                        {'X', 1.f},
+                        {'X', 1.f},
+                        {'X', 0.1f},
+                        {'X', 0.1f},
+                        {'X', -1.f},
+                        {'X', -0.1f}},
+             .numberOfValidTokens = 7,
+             .isSystemCommand = false,
+             .systemCommand =
+                 {
+                     .letter = '\0',
+                     .index = -1,
+                     .value = 0.f,
+                     .valueLetter = '\0',
+                 }},
+            GrblError::None,
+        },
 };
 
 std::string printchar(char c)
@@ -158,8 +179,12 @@ TEST_CASE("tokenize", "tokenize")
 
             for (int i = 0; i < 10; i++) {
                 std::cout << "result.tokens[" << i << "] = <"
+                          << printchar(tokens.tokens[i].type) << ","
+                          << tokens.tokens[i].value << ">, should be <"
                           << printchar(result.tokens[i].type) << ","
-                          << result.tokens[i].value << ">\n";
+                          << result.tokens[i].value
+                          << ">, equal: " << (tokens.tokens[i] == result.tokens[i])
+                          << "\n";
             }
             std::cout << std::endl;
 
